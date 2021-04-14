@@ -1,0 +1,44 @@
+function convertToRoman(num) {
+  let caracter = [];
+  let romanos = [
+    "I",  "V",
+    "X", "L",
+    "C","D",
+    "M"
+  ];
+  let numero = num;
+  let pos = 0;
+  while(1<=num){
+    numero = num%10;
+    console.log(numero);
+    switch(numero){
+      case 1: 
+      case 2:
+      case 3:  
+        caracter.push(romanos[pos].repeat(numero));
+        break;
+      case 4: 
+        caracter.push(romanos[pos]+romanos[pos+1]);
+       
+        break;
+      case 5:
+      case 6:
+      case 7:
+      case 8: 
+        console.log(romanos[pos]);
+        caracter.push(romanos[pos+1]+romanos[pos].repeat(numero-5));
+        break;
+      case 9:caracter.push(romanos[pos]+romanos[pos+2]);
+      break;
+      default:
+      
+    console.log("nada");
+      break;
+    }
+    pos = pos + 2;
+    num = Math.floor(num/10);
+  }
+ return caracter.reverse().join("");
+}
+
+console.log(convertToRoman(1023));
