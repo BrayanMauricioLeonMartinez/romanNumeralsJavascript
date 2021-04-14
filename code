@@ -60,4 +60,27 @@ function palindrome(str) {
 
 palindrome("_eyes");
 
+/*********************************************************************************************************************
+shift cipher  ROT13
+*/
 
+function rot13(str) {
+  let abc = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; 
+  let mensaje = str.split("");
+  let regex, numero;
+  for(let i = 0 ; i<str.length ; i++){
+    if(str[i].match(/[A-Z]/)){
+      regex = new RegExp(str[i], "i");
+      numero = abc.match(regex).index;
+      
+      numero += 13;
+      if(numero > 25)
+        numero -= 26;
+      
+      mensaje[i] = abc[numero];
+    }
+  }
+  return mensaje.join("");
+} 
+
+console.log(rot13("SERR CVMMN!"));
