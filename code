@@ -42,3 +42,22 @@ function convertToRoman(num) {
 }
 
 console.log(convertToRoman(1023));
+
+
+//*****************************************************************************************//
+//palindrome
+
+function palindrome(str) {
+  str = str.toLowerCase();
+  str = str.replace(/[\W_]/g,"");
+  let strI = str.split("").reverse().join("");
+  console.log(str);
+  if(str != strI){
+    return false; 
+  }
+  return true;
+}
+
+palindrome("_eyes");
+
+
