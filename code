@@ -86,12 +86,24 @@ function rot13(str) {
 console.log(rot13("SERR CVMMN!"));
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 function telephoneCheck(str) {
-  let numero = str.match(/-?\d?\(?\s?[\d]{3}-?\)?\s*[\d]{3}-?\s?[\d]{4}/gi);
+  let numeroA;
+  let pruebaP;
+  if ((/\(/i).test(str)){
+    pruebaP = str.match(/\(/i).index;
+    if(str[pruebaP+4] !== ")"){
+      console.log(str[pruebaP+4],"sds");
+      return false;
+    }
+  }
+  console.log(pruebaP);
+  let numero = str.match(/-?[\d]?\s?\([\d]{3}\)\s*[\d]{3}-?[\d]*|-?[\d]?\s?[\d]{3}-?\s?[\d]{3}-?\s?[\d]*/gi);
   if(numero === null)return false;
+
   numero = numero.join("");
-  //numero = numero.match(/\d/gi).join(""); 
-  console.log(numero);
-  switch(numero.length){
+   console.log(numero); 
+  numeroA = numero.match(/^[-]|[\d]/gi); 
+ console.log(numeroA);
+  switch(numeroA.length){ 
     case 10:
       return true;
       break;
@@ -107,4 +119,4 @@ function telephoneCheck(str) {
   }
 }
 
-console.log(telephoneCheck("-555)555-5555")); 
+console.log(telephoneCheck("1 (555) 555-5555")); 
