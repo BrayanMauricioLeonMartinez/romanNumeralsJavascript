@@ -84,3 +84,27 @@ function rot13(str) {
 } 
 
 console.log(rot13("SERR CVMMN!"));
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+function telephoneCheck(str) {
+  let numero = str.match(/-?\d?\(?\s?[\d]{3}-?\)?\s*[\d]{3}-?\s?[\d]{4}/gi);
+  if(numero === null)return false;
+  numero = numero.join("");
+  //numero = numero.match(/\d/gi).join(""); 
+  console.log(numero);
+  switch(numero.length){
+    case 10:
+      return true;
+      break;
+    case 11:
+      if(numero[0] == "1"){
+        return true;
+      }else{
+        return false;
+      }
+      break;
+    default:
+      return false;
+  }
+}
+
+console.log(telephoneCheck("-555)555-5555")); 
