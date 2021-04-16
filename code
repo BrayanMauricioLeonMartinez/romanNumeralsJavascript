@@ -120,3 +120,84 @@ function telephoneCheck(str) {
 }
 
 console.log(telephoneCheck("1 (555) 555-5555")); 
+
+
+/*************************************************************************************************************/
+function checkCashRegister(price, cash, cid) {
+  var change;
+  var cidA = JSON.parse(JSON.stringify(cid));
+//console.log(cidA);
+  var res = {Status:"", change:[]};
+  var cambio = [];
+  var total = 0.0;
+  var status = "";
+  let dineroTotal;
+  var valores = {
+    "ONE HUNDRED": 100.0 ,
+    "TWENTY": 20.0 ,
+    "TEN": 10.0 ,
+    "FIVE": 5.0 ,
+    "ONE": 1.0 ,
+    "QUARTER": 0.25 ,
+    "DIME": 0.1 ,
+    "NICKEL": 0.05 ,
+    "PENNY": 0.01 
+  };
+change =  cash - price;
+dineroTotal=0;
+for (let i = 0; i<cidA.length-1;i++){
+  dineroTotal = dineroTotal + cidA[i][1];
+  dineroTotal.toFixed(2);
+  //console.log(dineroTotal, cidA[i][1]);
+}
+for(let i = cidA.length-1; i >= 0;i--){
+  //console.log("=>",cidA);
+      //console.log(cidA[i][0] , "<=");
+  let billetes;
+  //console.log(cidA[i][1] , valores[cidA[i][0]]);
+  if(cidA[i][1] > 0 && valores[cidA[i][0]] <= change ){
+    
+    billetes = Math.floor(cidA[i][1]/valores[cidA[i][0]]);
+    //console.log(cidA[i][1]/valores[cidA[i][0]]);
+    for(let n = 0; n < billetes ;n++){
+      
+      //console.log("=>",cidA);
+      let mirar =  Math.round(valores[cidA[i][0]]*100)/100;
+      
+      if(change- mirar>= 0){
+        change -= mirar;
+        cidA[i][1] -= mirar;
+        cidA[i][1] = Math.round( cidA[i][1] * 100) / 100;
+        //console.log();
+        total += valores[cidA[i][0]];
+        total = Math.round(total * 100) / 100;
+        change = change.toFixed(2);
+        //console.log(total);
+      }
+      //console.log(change);
+      
+    }
+    cambio.push([cidA[i][0],total]);
+    //console.log([cidA[i][0],total.toFixed(2)]);
+    
+    //console.log(dineroTotal,total.toFixed(2));
+    dineroTotal = dineroTotal.toFixed(2) - total.toFixed(2);
+    total = 0;
+  }
+}
+if(change > 0){
+  status = "INSUFFICIENT_FUNDS";
+  cambio = [];
+}else if(dineroTotal == 0){
+  status = "CLOSED";
+  cambio = cid;
+  //console.log(cidA,status, dineroTotal);
+}else if (change == 0){
+  status = "OPEN";
+}
+
+console.log("ssss",status,cid, dineroTotal);
+  return {status: status, change: cambio};
+}
+
+checkCashRegister(19.5, 20, [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]])
